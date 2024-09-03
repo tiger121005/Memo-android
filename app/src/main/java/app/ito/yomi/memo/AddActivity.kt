@@ -23,7 +23,7 @@ class AddActivity : AppCompatActivity() {
 
         binding.saveBtn.setOnClickListener {
 
-            viewModel.insert(binding.editText.text.toString())
+            viewModel.insert(binding.editTitle.text.toString(), binding.editText.text.toString())
             val mainIntent = Intent(this, MainActivity::class.java)
             startActivity(mainIntent)
         }

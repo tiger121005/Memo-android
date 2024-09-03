@@ -17,6 +17,7 @@ class CustomAdapter(context: Context, list: MutableList<MemoData>): ArrayAdapter
         // 一行分のデータを取得
         val data = getItem(position) as MemoData
         view?.findViewById<TextView>(R.id.title)?.apply { text = data.title }
+        view?.findViewById<TextView>(R.id.text)?.apply { text = data.text }
         return view!!
     }
 

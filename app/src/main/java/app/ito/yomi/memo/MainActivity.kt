@@ -42,6 +42,7 @@ class MainActivity : AppCompatActivity() {
             val editIntent = Intent(this, EditActivity::class.java)
             editIntent.putExtra("id", memo.id)
             editIntent.putExtra("title", memo.title)
+            editIntent.putExtra("text", memo.text)
             startActivity(editIntent)
         }
     }

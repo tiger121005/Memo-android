@@ -21,9 +21,9 @@ class MemoViewModel(application: Application) : AndroidViewModel(application) {
     val memoAllData = dao.getAllMemos()
 
     // DBにデータを保存
-    fun insert(title: String) {
+    fun insert(title: String, text: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            dao.insert(MemoData(title = title))
+            dao.insert(MemoData(title = title, text = text))
         }
     }
 

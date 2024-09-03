@@ -10,7 +10,7 @@ import app.ito.yomi.memo.MemoData
 /**
  * Database class with a singleton Instance object.
  */
-@Database(entities = [MemoData::class], version = 1, exportSchema = false)
+@Database(entities = [MemoData::class], version = 2, exportSchema = false)
 abstract class MemoDatabase : RoomDatabase() {
 
     abstract fun memoDao(): MemoDao

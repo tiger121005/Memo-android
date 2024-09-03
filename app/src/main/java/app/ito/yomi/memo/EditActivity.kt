@@ -20,15 +20,18 @@ class EditActivity : AppCompatActivity() {
 
         val id = intent.getIntExtra("id", 0)
         val title = intent.getStringExtra("title")  ?: ""
-        binding.editText.setText(title)
+        val text = intent.getStringExtra("text") ?: ""
+
+        binding.editTitle.setText(title)
+        binding.editText.setText(text)
 
         binding.saveBtn.setOnClickListener {
-            viewModel.update(MemoData(id = id, title = binding.editText.text.toString()))
+            viewModel.update(MemoData(id = id, title = binding.editTitle.text.toString(), text = binding.editText.text.toString()))
             finish()
         }
 
         binding.deleteBtn.setOnClickListener {
-            viewModel.delete(MemoData(id = id, title = binding.editText.text.toString()))
+            viewModel.delete(MemoData(id = id, title = binding.editTitle.text.toString(), text = binding.editText.text.toString()))
             finish()
         }
     }
