@@ -1,22 +1,22 @@
 package app.ito.yomi.memo
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import app.ito.yomi.memo.databinding.ActivityEditBinding
 
-class EditActivity : AppCompatActivity() {
+class EditActivity : AppCompatActivity(), NoticeDialogListener {
 
     private lateinit var binding: ActivityEditBinding
+    private val viewModel: MemoViewModel by viewModels()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityEditBinding.inflate(layoutInflater).apply { setContentView(this.root) }
-        val viewModel: MemoViewModel by viewModels()
+
+
 
         val id = intent.getIntExtra("id", 0)
         val title = intent.getStringExtra("title")  ?: ""
@@ -31,8 +31,16 @@ class EditActivity : AppCompatActivity() {
         }
 
         binding.deleteBtn.setOnClickListener {
-            viewModel.delete(MemoData(id = id, title = binding.editTitle.text.toString(), text = binding.editText.text.toString()))
-            finish()
+            DeleteDialogFragment().show(supportFragmentManager, "delete")
         }
+    }
+
+    override fun onDialogPositiveClick(dialog: DeleteDialogFragment) {
+        viewModel.delete(MemoData(id = intent.getIntExtra("id", 0), title = binding.editTitle.text.toString(), text = binding.editText.text.toString()))
+        finish()
+    }
+
+    override fun onDialogNegativeClick(dialog: DeleteDialogFragment) {
+
     }
 }
