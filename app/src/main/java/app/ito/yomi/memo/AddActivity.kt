@@ -17,15 +17,11 @@ class AddActivity : AppCompatActivity() {
         binding = ActivityAddBinding.inflate(layoutInflater).apply { setContentView(this.root) }
         val viewModel: MemoViewModel by viewModels()
 
-        binding.saveBtn.setOnClickListener {
+        binding.addBtn.setOnClickListener {
 
             viewModel.insert(binding.editTitle.text.toString(), binding.editText.text.toString())
             val mainIntent = Intent(this, MainActivity::class.java)
             startActivity(mainIntent)
-        }
-
-        binding.deleteBtn.setOnClickListener {
-            finish()
         }
     }
 }

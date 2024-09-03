@@ -5,7 +5,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import app.ito.yomi.memo.databinding.ActivityEditBinding
 
-class EditActivity : AppCompatActivity(), NoticeDialogListener {
+class EditActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityEditBinding
     private val viewModel: MemoViewModel by viewModels()
@@ -30,17 +30,8 @@ class EditActivity : AppCompatActivity(), NoticeDialogListener {
             finish()
         }
 
-        binding.deleteBtn.setOnClickListener {
-            DeleteDialogFragment().show(supportFragmentManager, "delete")
-        }
-    }
-
-    override fun onDialogPositiveClick(dialog: DeleteDialogFragment) {
-        viewModel.delete(MemoData(id = intent.getIntExtra("id", 0), title = binding.editTitle.text.toString(), text = binding.editText.text.toString()))
-        finish()
-    }
-
-    override fun onDialogNegativeClick(dialog: DeleteDialogFragment) {
 
     }
+
+
 }

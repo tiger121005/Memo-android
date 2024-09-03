@@ -36,11 +36,11 @@ class MainActivity : AppCompatActivity() {
 
         val adapter = RecyclerAdapter(list, object : RecyclerAdapter.OnMemoCellClickListener {
             override fun onItemClick(view: View, position: Int, memo: MemoData) {
-                val editIntent = Intent(this@MainActivity, EditActivity::class.java)
-                editIntent.putExtra("id", memo.id)
-                editIntent.putExtra("title", memo.title)
-                editIntent.putExtra("text", memo.text)
-                startActivity(editIntent)
+                val detailIntent = Intent(this@MainActivity, DetailActivity::class.java)
+                detailIntent.putExtra("id", memo.id)
+                detailIntent.putExtra("title", memo.title)
+                detailIntent.putExtra("text", memo.text)
+                startActivity(detailIntent)
             }
         })
         recyclerView = findViewById(R.id.recycler_view)
@@ -55,11 +55,11 @@ class MainActivity : AppCompatActivity() {
     fun updateList(list: MutableList<MemoData>) {
         recyclerView.adapter = RecyclerAdapter(list, object : RecyclerAdapter.OnMemoCellClickListener {
             override fun onItemClick(view: View, position: Int, memo: MemoData) {
-                val editIntent = Intent(this@MainActivity, EditActivity::class.java)
-                editIntent.putExtra("id", memo.id)
-                editIntent.putExtra("title", memo.title)
-                editIntent.putExtra("text", memo.text)
-                startActivity(editIntent)
+                val detailIntent = Intent(this@MainActivity, DetailActivity::class.java)
+                detailIntent.putExtra("id", memo.id)
+                detailIntent.putExtra("title", memo.title)
+                detailIntent.putExtra("text", memo.text)
+                startActivity(detailIntent)
             }
         })
     }
