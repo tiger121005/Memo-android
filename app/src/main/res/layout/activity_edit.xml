@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddActivity">
+    tools:context=".EditActivity">
 
     <EditText
         android:id="@+id/editText"
@@ -44,5 +44,4 @@
         android:textColor="@color/black"
         app:layout_constraintEnd_toStartOf="@+id/save_btn"
         app:layout_constraintTop_toBottomOf="@+id/editText" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

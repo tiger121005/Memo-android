@@ -36,6 +36,14 @@ class MainActivity : AppCompatActivity() {
             val addIntent = Intent(this, AddActivity::class.java)
             startActivity(addIntent)
         }
+
+        binding.listview.setOnItemClickListener { parent, view, position, id ->
+            val memo = list[position]
+            val editIntent = Intent(this, EditActivity::class.java)
+            editIntent.putExtra("id", memo.id)
+            editIntent.putExtra("title", memo.title)
+            startActivity(editIntent)
+        }
     }
 
     fun updateList(data: MutableList<MemoData>) {
