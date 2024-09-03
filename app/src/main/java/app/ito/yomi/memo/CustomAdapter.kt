@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 
-class CustomAdapter(context: Context, list: MutableList<String>): ArrayAdapter<String>(context, 0, list) {
+class CustomAdapter(context: Context, list: MutableList<MemoData>): ArrayAdapter<MemoData>(context, 0, list) {
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         var view  = convertView
         if (view == null) {
@@ -15,8 +15,8 @@ class CustomAdapter(context: Context, list: MutableList<String>): ArrayAdapter<S
             view  = LayoutInflater.from(context).inflate(R.layout.list_item, parent, false)
         }
         // 一行分のデータを取得
-        val data = getItem(position) as String
-        view?.findViewById<TextView>(R.id.title)?.apply { text = data }
+        val data = getItem(position) as MemoData
+        view?.findViewById<TextView>(R.id.title)?.apply { text = data.title }
         return view!!
     }
 
