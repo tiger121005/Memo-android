@@ -1,5 +1,6 @@
 package app.ito.yomi.memo
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
@@ -24,26 +25,12 @@ class DetailActivity : AppCompatActivity(), NoticeDialogListener {
         viewModel.fetchMemo(id)
 
         viewModel.memoData.observe(this) { memoData ->
-            memoData?.let { memoData ->
-                memo = memoData
-                binding.titleView.text = memoData.title
-                binding.textView.text = memoData.text
-            } ?: run {
-                // メモデータが存在しない場合の処理
-                binding.titleView.text = "No Memo Found"
-                binding.textView.text = ""
-            }
+            textInit(memoData)
         }
 
 
         binding.editBtn.setOnClickListener {
-            val editIntent = intent.apply {
-                setClass(this@DetailActivity, EditActivity::class.java)
-            }
-            editIntent.putExtra("id", id)
-            editIntent.putExtra("title", memo.title)
-            editIntent.putExtra("text", memo.text)
-            startActivity(editIntent)
+            tapEditButton()
         }
 
         binding.deleteBtn.setOnClickListener {
@@ -58,5 +45,25 @@ class DetailActivity : AppCompatActivity(), NoticeDialogListener {
 
     override fun onDialogNegativeClick(dialog: DeleteDialogFragment) {
 
+    }
+
+    fun textInit(memoData: MemoData?) {
+        memoData?.let { memoData ->
+            memo = memoData
+            binding.titleView.text = memoData.title
+            binding.textView.text = memoData.text
+        } ?: run {
+            // メモデータが存在しない場合の処理
+            binding.titleView.text = "No Memo Found"
+            binding.textView.text = ""
+        }
+    }
+
+    fun tapEditButton() {
+        val editIntent = Intent(this@DetailActivity, EditActivity::class.java)
+        editIntent.putExtra("id", intent.getIntExtra("id", 0))
+        editIntent.putExtra("title", memo.title)
+        editIntent.putExtra("text", memo.text)
+        startActivity(editIntent)
     }
 }
