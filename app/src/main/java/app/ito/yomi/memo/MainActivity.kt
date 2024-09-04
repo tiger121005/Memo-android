@@ -28,19 +28,18 @@ class MainActivity : AppCompatActivity() {
             updateList(list)
         })
 
+        listInit()
 
         binding.addBtn.setOnClickListener {
-            val addIntent = Intent(this, AddActivity::class.java)
-            startActivity(addIntent)
+            tapAddButton()
         }
 
+    }
+
+    fun listInit() {
         val adapter = RecyclerAdapter(list, object : RecyclerAdapter.OnMemoCellClickListener {
             override fun onItemClick(view: View, position: Int, memo: MemoData) {
-                val detailIntent = Intent(this@MainActivity, DetailActivity::class.java)
-                detailIntent.putExtra("id", memo.id)
-                detailIntent.putExtra("title", memo.title)
-                detailIntent.putExtra("text", memo.text)
-                startActivity(detailIntent)
+                moveToDetailActivity(memo)
             }
         })
         recyclerView = findViewById(R.id.recycler_view)
@@ -49,19 +48,27 @@ class MainActivity : AppCompatActivity() {
         recyclerView.setHasFixedSize(true)
         val divider = androidx.recyclerview.widget.DividerItemDecoration(this, LinearLayoutManager(this).orientation)
         recyclerView.addItemDecoration(divider)
-
     }
 
     fun updateList(list: MutableList<MemoData>) {
         recyclerView.adapter = RecyclerAdapter(list, object : RecyclerAdapter.OnMemoCellClickListener {
             override fun onItemClick(view: View, position: Int, memo: MemoData) {
-                val detailIntent = Intent(this@MainActivity, DetailActivity::class.java)
-                detailIntent.putExtra("id", memo.id)
-                detailIntent.putExtra("title", memo.title)
-                detailIntent.putExtra("text", memo.text)
-                startActivity(detailIntent)
+                moveToDetailActivity(memo)
             }
         })
+    }
+
+    fun moveToDetailActivity(memo: MemoData) {
+        val detailIntent = Intent(this@MainActivity, DetailActivity::class.java)
+        detailIntent.putExtra("id", memo.id)
+        detailIntent.putExtra("title", memo.title)
+        detailIntent.putExtra("text", memo.text)
+        startActivity(detailIntent)
+    }
+
+    fun tapAddButton() {
+        val addIntent = Intent(this, AddActivity::class.java)
+        startActivity(addIntent)
     }
 
 }
