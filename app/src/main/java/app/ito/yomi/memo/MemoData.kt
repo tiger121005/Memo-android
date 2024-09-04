@@ -7,7 +7,8 @@ import androidx.room.PrimaryKey
 data class MemoData (
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
-    var title: String
+    var title: String,
+    var text: String
 ){
 
 }

@@ -1,22 +1,19 @@
 package app.ito.yomi.memo
 
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import app.ito.yomi.memo.databinding.ActivityMainBinding
-import java.io.File
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var recyclerView: RecyclerView
 
     var list: MutableList<MemoData> = mutableListOf()
 
@@ -37,18 +34,34 @@ class MainActivity : AppCompatActivity() {
             startActivity(addIntent)
         }
 
-        binding.listview.setOnItemClickListener { parent, view, position, id ->
-            val memo = list[position]
-            val editIntent = Intent(this, EditActivity::class.java)
-            editIntent.putExtra("id", memo.id)
-            editIntent.putExtra("title", memo.title)
-            startActivity(editIntent)
-        }
+        val adapter = RecyclerAdapter(list, object : RecyclerAdapter.OnMemoCellClickListener {
+            override fun onItemClick(view: View, position: Int, memo: MemoData) {
+                val detailIntent = Intent(this@MainActivity, DetailActivity::class.java)
+                detailIntent.putExtra("id", memo.id)
+                detailIntent.putExtra("title", memo.title)
+                detailIntent.putExtra("text", memo.text)
+                startActivity(detailIntent)
+            }
+        })
+        recyclerView = findViewById(R.id.recycler_view)
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.setHasFixedSize(true)
+        val divider = androidx.recyclerview.widget.DividerItemDecoration(this, LinearLayoutManager(this).orientation)
+        recyclerView.addItemDecoration(divider)
+
     }
 
-    fun updateList(data: MutableList<MemoData>) {
-        val adapter = CustomAdapter(this, list)
-        binding.listview.adapter = adapter
+    fun updateList(list: MutableList<MemoData>) {
+        recyclerView.adapter = RecyclerAdapter(list, object : RecyclerAdapter.OnMemoCellClickListener {
+            override fun onItemClick(view: View, position: Int, memo: MemoData) {
+                val detailIntent = Intent(this@MainActivity, DetailActivity::class.java)
+                detailIntent.putExtra("id", memo.id)
+                detailIntent.putExtra("title", memo.title)
+                detailIntent.putExtra("text", memo.text)
+                startActivity(detailIntent)
+            }
+        })
     }
 
 }

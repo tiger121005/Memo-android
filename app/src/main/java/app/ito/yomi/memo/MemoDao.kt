@@ -22,4 +22,7 @@ interface MemoDao {
 
     @Query("SELECT * FROM memos ORDER BY id DESC")
     fun getAllMemos(): LiveData<List<MemoData>>
+
+    @Query("SELECT * FROM memos WHERE id = :id")
+    fun getMemo(id: Int): LiveData<MemoData>
 }
